@@ -15,7 +15,7 @@ siteData1 <- read_xlsx("RawDataandProcessing/Hair1_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum) %>%
+  dplyr::select(variable, datum) %>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
 siteData2 <- read_xlsx("RawDataandProcessing/Hair2_HerbVar_Datasheet_2024.xlsx", 
@@ -24,7 +24,7 @@ siteData2 <- read_xlsx("RawDataandProcessing/Hair2_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum)%>%
+  dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
 siteData3 <- read_xlsx("RawDataandProcessing/Hair3_HerbVar_Datasheet_2024.xlsx", 
@@ -33,7 +33,7 @@ siteData3 <- read_xlsx("RawDataandProcessing/Hair3_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum)%>%
+  dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
 siteData4 <- read_xlsx("RawDataandProcessing/Hair4_HerbVar_Datasheet_2024.xlsx", 
@@ -42,7 +42,7 @@ siteData4 <- read_xlsx("RawDataandProcessing/Hair4_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum)%>%
+  dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
 siteData5 <- read_xlsx("RawDataandProcessing/Hair5_HerbVar_Datasheet_2024.xlsx", 
@@ -51,7 +51,7 @@ siteData5 <- read_xlsx("RawDataandProcessing/Hair5_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum)%>%
+  dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
 siteData6 <- read_xlsx("RawDataandProcessing/Hair6_HerbVar_Datasheet_2024.xlsx", 
@@ -60,7 +60,7 @@ siteData6 <- read_xlsx("RawDataandProcessing/Hair6_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum)%>%
+  dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
 siteData7 <- read_xlsx("RawDataandProcessing/Hair7_HerbVar_Datasheet_2024.xlsx", 
@@ -69,7 +69,7 @@ siteData7 <- read_xlsx("RawDataandProcessing/Hair7_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum)%>%
+  dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
 siteData8 <- read_xlsx("RawDataandProcessing/Hair8_HerbVar_Datasheet_2024.xlsx", 
@@ -78,10 +78,10 @@ siteData8 <- read_xlsx("RawDataandProcessing/Hair8_HerbVar_Datasheet_2024.xlsx",
            variable == "plantFamily" | variable == "transectOriginLat" |
            variable == "transectOriginLong" | variable == "quadratRadius" |
            variable == "protocolFollowed") %>%
-  select(variable, datum)%>%
+  dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
-
+# something
 ## Bind Site Data ####
 site_data_all <- rbind(siteData1, siteData2) %>% 
   rbind(., siteData3) %>%

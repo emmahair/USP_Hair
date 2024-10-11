@@ -209,14 +209,6 @@ leaf_herb_stats <- plant_data_all %>%
     skewness = skewness(percHerbPlant, na.rm = TRUE)
   )
 
-plant_herb_stats <- plant_data_all %>%
-  group_by(survey) %>%
-  summarize(
-    mean = mean(percHerbPlant, na.rm = TRUE),
-    variance = var(percHerbPlant, na.rm = TRUE),
-    skewness = skewness(percHerbPlant, na.rm = TRUE)
-  )
-
 
 # To visualize ?
 
@@ -267,13 +259,17 @@ combined_plant_and_site_data <- combined_plant_and_site_data %>%
   ) %>%
   filter(!is.na(numPlantsinQuad) & !is.na(quadratRadius)) %>% 
   mutate(plantDensity = numPlantsinQuad / quadratArea, 
-         plantDensitym2 = plantDensity * 1/quadratArea)
+         plantDensitym2 = plantDensity * 1/quadratArea,
+         plantfrequency = as.numeric (focalPlantCover) / (as.numeric(focalPlantCover) + as.numeric(otherPlantCover)))
 
 survey_density <- combined_plant_and_site_data %>%
   group_by(survey) %>%
   summarize(
-    meanDensity = mean(plantDensitym2, na.rm = TRUE)  
+    meanDensity = mean(plantDensitym2, na.rm = TRUE),
+    meanFrequency = mean(plantfrequency, na.rm = TRUE)
   )
+
+all_stats <- full_join(survey_density, leaf_herb_stats)
 
 # Using the ‘fitdistrplus’ package (one survey at a time) ####
 ## Survey 1 -need to filter to just one survey - ln best ####

@@ -308,7 +308,7 @@ summary(ln.MME)
 summary(bt.MME)
 
 
-### example graph – NOT WORKING can update later ###
+### histogram of the three lines ###
 histo1 <- ggplot(onesurv, aes(percHerbPlant/100)) +
   geom_histogram(aes(x = percHerbPlant/100,
                      y = stat(count / sum(count))*100),
@@ -363,6 +363,25 @@ summary(nm.MME2)
 summary(ln.MME2)
 summary(bt.MME2)
 
+### histogram of the three lines ###
+histo2 <- ggplot(twosurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
+                 color = 'black', fill="grey80",
+                 binwidth = .01) +
+  #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
+  stat_function(geom = "line", aes(propHerb2), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME2$estimate[1], sd=nm.MME2$estimate[2]), xlim = c(-.01,.25), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb2), n = 100, fun = dbeta, 
+                args = list(shape1=bt.MME2$estimate[1], shape2=bt.MME2$estimate[2]), xlim = c(0,.25), 
+                color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb2), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME2$estimate[1], sdlog=ln.MME2$estimate[2]), xlim = c(0,.25), 
+                color = "green", alpha = 1, linewidth=2)+
+  theme_bw(base_size = 24)+
+  labs(x='proportion herbivory', y='density')
+
 ## Survey 3: need to filter to just one survey - ln best ####
 threesurv <- plant_data_all %>% filter(survey == "Survey 3")
 threesurv$propHerb3 <- (threesurv$percHerbPlant)/100
@@ -398,6 +417,25 @@ summary(nm.MME3)
 summary(ln.MME3)
 summary(bt.MME3)
 
+### histogram of the three lines ###
+histo3 <- ggplot(threesurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
+                 color = 'black', fill="grey80",
+                 binwidth = .01) +
+  #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
+  stat_function(geom = "line", aes(propHerb3), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME3$estimate[1], sd=nm.MME3$estimate[2]), xlim = c(-.01,.4), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb3), n = 100, fun = dbeta, 
+                args = list(shape1=bt.MME3$estimate[1], shape2=bt.MME3$estimate[2]), xlim = c(0,.4), 
+                color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb3), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME3$estimate[1], sdlog=ln.MME3$estimate[2]), xlim = c(0,.4), 
+                color = "green", alpha = 1, linewidth=2)+
+  theme_bw(base_size = 24)+
+  labs(x='proportion herbivory', y='density')
+
 ## Survey 4: need to filter to just one survey - ln best ####
 foursurv <- plant_data_all %>% filter(survey == "Survey 4")
 foursurv$propHerb4 <- (foursurv$percHerbPlant)/100
@@ -431,6 +469,24 @@ plot(bt.MME4)
 summary(nm.MME4)
 summary(ln.MME4)
 summary(bt.MME4)
+
+histo4 <- ggplot(foursurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
+                 color = 'black', fill="grey80",
+                 binwidth = .01) +
+  #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
+  stat_function(geom = "line", aes(propHerb4), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME4$estimate[1], sd=nm.MME4$estimate[2]), xlim = c(-.01,.3), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb4), n = 100, fun = dbeta, 
+                args = list(shape1=bt.MME4$estimate[1], shape2=bt.MME4$estimate[2]), xlim = c(0,.3), 
+                color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb4), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME4$estimate[1], sdlog=ln.MME4$estimate[2]), xlim = c(0,.3), 
+                color = "green", alpha = 1, linewidth=2)+
+  theme_bw(base_size = 24)+
+  labs(x='proportion herbivory', y='density')
 
 ## Survey 5: need to filter to just one survey - ln best ####
 fivesurv <- plant_data_all %>% filter(survey == "Survey 5")
@@ -466,6 +522,24 @@ summary(nm.MME5)
 summary(ln.MME5)
 summary(bt.MME5)
 
+histo5 <- ggplot(fivesurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
+                 color = 'black', fill="grey80",
+                 binwidth = .01) +
+  #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
+  stat_function(geom = "line", aes(propHerb5), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME5$estimate[1], sd=nm.MME5$estimate[2]), xlim = c(-.01,.4), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb5), n = 100, fun = dbeta, 
+                args = list(shape1=bt.MME5$estimate[1], shape2=bt.MME5$estimate[2]), xlim = c(0,.4), 
+                color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb5), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME5$estimate[1], sdlog=ln.MME5$estimate[2]), xlim = c(0,.4), 
+                color = "green", alpha = 1, linewidth=2)+
+  theme_bw(base_size = 24)+
+  labs(x='proportion herbivory', y='density')
+
 ## Survey 6: need to filter to just one survey - ln best ####
 sixsurv <- plant_data_all %>% filter(survey == "Survey 6")
 sixsurv$propHerb6 <- (sixsurv$percHerbPlant)/100
@@ -499,6 +573,24 @@ plot(bt.MME6)
 summary(nm.MME6)
 summary(ln.MME6)
 summary(bt.MME6)
+
+histo6 <- ggplot(sixsurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
+                 color = 'black', fill="grey80",
+                 binwidth = .01) +
+  #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
+  stat_function(geom = "line", aes(propHerb6), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME6$estimate[1], sd=nm.MME6$estimate[2]), xlim = c(-.01,.4), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb6), n = 100, fun = dbeta, 
+                args = list(shape1=bt.MME6$estimate[1], shape2=bt.MME6$estimate[2]), xlim = c(0,.4), 
+                color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb6), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME6$estimate[1], sdlog=ln.MME6$estimate[2]), xlim = c(0,.4), 
+                color = "green", alpha = 1, linewidth=2)+
+  theme_bw(base_size = 24)+
+  labs(x='proportion herbivory', y='density')
 
 ## Survey 7: need to filter to just one survey - ln best ####
 sevensurv <- plant_data_all %>% filter(survey == "Survey 7")
@@ -534,6 +626,24 @@ summary(nm.MME7)
 summary(ln.MME7)
 summary(bt.MME7)
 
+histo7 <- ggplot(sevensurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
+                 color = 'black', fill="grey80",
+                 binwidth = .01) +
+  #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
+  stat_function(geom = "line", aes(propHerb7), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME7$estimate[1], sd=nm.MME7$estimate[2]), xlim = c(-.01,.8), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb7), n = 100, fun = dbeta, 
+                args = list(shape1=bt.MME7$estimate[1], shape2=bt.MME7$estimate[2]), xlim = c(0,.8), 
+                color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb7), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME7$estimate[1], sdlog=ln.MME7$estimate[2]), xlim = c(0,.8), 
+                color = "green", alpha = 1, linewidth=2)+
+  theme_bw(base_size = 24)+
+  labs(x='proportion herbivory', y='density')
+
 ## Survey 8: need to filter to just one survey - ln best ####
 eightsurv <- plant_data_all %>% filter(survey == "Survey 8")
 eightsurv$propHerb8 <- (eightsurv$percHerbPlant)/100
@@ -568,3 +678,20 @@ summary(nm.MME8)
 summary(ln.MME8)
 summary(bt.MME8)
 
+histo8 <- ggplot(eightsurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
+                 color = 'black', fill="grey80",
+                 binwidth = .01) +
+  #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
+  stat_function(geom = "line", aes(propHerb8), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME8$estimate[1], sd=nm.MME8$estimate[2]), xlim = c(-.01,.2), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb8), n = 100, fun = dbeta, 
+                args = list(shape1=bt.MME8$estimate[1], shape2=bt.MME8$estimate[2]), xlim = c(0,.2), 
+                color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb8), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME8$estimate[1], sdlog=ln.MME8$estimate[2]), xlim = c(0,.2), 
+                color = "green", alpha = 1, linewidth=2)+
+  theme_bw(base_size = 24)+
+  labs(x='proportion herbivory', y='density')

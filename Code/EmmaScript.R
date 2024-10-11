@@ -81,7 +81,6 @@ siteData8 <- read_xlsx("RawDataandProcessing/Hair8_HerbVar_Datasheet_2024.xlsx",
   dplyr::select(variable, datum)%>%
   pivot_wider(names_from = "variable", values_from = "datum")
 
-## adding test code here ####
 
 ## Bind Site Data ####
 site_data_all <- rbind(siteData1, siteData2) %>% 

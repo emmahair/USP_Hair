@@ -313,18 +313,23 @@ summary(bt.MME)
 
 
 ### example graph – NOT WORKING can update later ###
-horse2 <- ggplot(onesurv, aes(propHerb1)) +
-  geom_histogram(aes(x = propHerb1,
-                     y = stat(count / sum(count))),
+histo1 <- ggplot(onesurv, aes(percHerbPlant/100)) +
+  geom_histogram(aes(x = percHerbPlant/100,
+                     y = stat(count / sum(count))*100),
                  color = 'black', fill="grey80",
-                 binwidth = 6) +
+                 binwidth = .01) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
-  stat_function(geom = "area", aes(propHerb1), n = 6, fun = dnorm,
-                args = list(mean = 0.7), xlim = c(0,1),
-                fill = "purple", alpha = 0.3)+
-  # annotate(geom="text", x=4, y=.4, label=expression(~lambda == 0.7),color="black", size=8)+
+  stat_function(geom = "line", aes(propHerb1), n = 100, fun = dnorm, 
+                args = list(mean=nm.MME$estimate[1], sd=nm.MME$estimate[2]), xlim = c(-.01,.25), 
+                color = "red", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb1), n = 100, fun = dbeta, 
+               args = list(shape1=bt.MME$estimate[1], shape2=bt.MME$estimate[2]), xlim = c(0,.25), 
+               color = "purple", alpha = 1, linewidth=2)+ 
+  stat_function(geom = "line", aes(propHerb1), n = 100, fun = dlnorm, 
+                args = list(meanlog=ln.MME$estimate[1], sdlog=ln.MME$estimate[2]), xlim = c(0,.25), 
+                color = "green", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='deaths by horse kick', y='proportion')
+  labs(x='proportion herbivory', y='density')
 
 
 ## Survey 2: need to filter to just one survey - ln best ####

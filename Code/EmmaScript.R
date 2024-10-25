@@ -216,7 +216,7 @@ leaf_herb_stats <- plant_data_all %>%
 # To visualize ?
 
 ggplot(plant_data_all, aes(x = numLeavesHerb)) +
-  geom_histogram(fill = "lightblue", color = "black", bins = 30) +
+  geom_histogram(fill = "#d55e00", color = "black", bins = 30) +
   facet_wrap(~ survey) + 
   labs(title = "Number of Leaf Herbivory by Survey",
        x = "Count",
@@ -281,7 +281,9 @@ all_stats[8,8]<- "rare"
 ggplot(all_stats%>%drop_na(meanDensity), aes(x = log(meanDensity), y = mean)) + 
   geom_point() +
   geom_smooth(method = "lm")
-# add sd and skew
+ggplot(all_stats%>%drop_na(meanFrequency), aes(x = log(meanFrequency), y = mean)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
 
 # box plot showing low vs high densty
 ggplot(all_stats, aes(x = abundance, y = mean)) + 
@@ -334,15 +336,22 @@ histo1 <- ggplot(onesurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb1), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME$estimate[1], sd=nm.MME$estimate[2]), xlim = c(-.01,.25), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb1), n = 100, fun = dbeta, 
                args = list(shape1=bt.MME$estimate[1], shape2=bt.MME$estimate[2]), xlim = c(0,.25), 
-               color = "purple", alpha = 1, linewidth=2)+ 
+               color = "#0072b2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb1), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME$estimate[1], sdlog=ln.MME$estimate[2]), xlim = c(0,.25), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#d55e00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Tall Goldenrod") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
 
 ## Survey 2: need to filter to just one survey - ln best ####
@@ -389,15 +398,22 @@ histo2 <- ggplot(twosurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb2), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME2$estimate[1], sd=nm.MME2$estimate[2]), xlim = c(-.01,.25), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb2), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME2$estimate[1], shape2=bt.MME2$estimate[2]), xlim = c(0,.25), 
-                color = "purple", alpha = 1, linewidth=2)+ 
+                color = "#0072b2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb2), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME2$estimate[1], sdlog=ln.MME2$estimate[2]), xlim = c(0,.25), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#d55e00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Sweet Goldenrod") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
 ## Survey 3: need to filter to just one survey - ln best ####
 threesurv <- plant_data_all %>% filter(survey == "Survey 3")
@@ -443,15 +459,22 @@ histo3 <- ggplot(threesurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb3), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME3$estimate[1], sd=nm.MME3$estimate[2]), xlim = c(-.01,.4), 
-                color = "#FDE725FF", alpha = 1, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb3), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME3$estimate[1], shape2=bt.MME3$estimate[2]), xlim = c(0,.4), 
-                color = "#404788FF", alpha = 1, linewidth=2)+ 
+                color = "#0072b2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb3), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME3$estimate[1], sdlog=ln.MME3$estimate[2]), xlim = c(0,.4), 
-                color = "#55C667FF", alpha = 1, linewidth=2)+
+                color = "#d55e00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Hairy sunflower") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
 ## Survey 4: need to filter to just one survey - ln best ####
 foursurv <- plant_data_all %>% filter(survey == "Survey 4")
@@ -495,15 +518,22 @@ histo4 <- ggplot(foursurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb4), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME4$estimate[1], sd=nm.MME4$estimate[2]), xlim = c(-.01,.3), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb4), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME4$estimate[1], shape2=bt.MME4$estimate[2]), xlim = c(0,.3), 
-                color = "purple", alpha = 1, linewidth=2)+ 
+                color = "#0072b2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb4), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME4$estimate[1], sdlog=ln.MME4$estimate[2]), xlim = c(0,.3), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#d55e00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Indian blanket") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
 ## Survey 5: need to filter to just one survey - ln best ####
 fivesurv <- plant_data_all %>% filter(survey == "Survey 5")
@@ -547,15 +577,22 @@ histo5 <- ggplot(fivesurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb5), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME5$estimate[1], sd=nm.MME5$estimate[2]), xlim = c(-.01,.4), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb5), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME5$estimate[1], shape2=bt.MME5$estimate[2]), xlim = c(0,.4), 
-                color = "purple", alpha = 1, linewidth=2)+ 
+                color = "#0072b2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb5), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME5$estimate[1], sdlog=ln.MME5$estimate[2]), xlim = c(0,.4), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#d55e00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Florida alicia") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
 ## Survey 6: need to filter to just one survey - ln best ####
 sixsurv <- plant_data_all %>% filter(survey == "Survey 6")
@@ -599,15 +636,22 @@ histo6 <- ggplot(sixsurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb6), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME6$estimate[1], sd=nm.MME6$estimate[2]), xlim = c(-.01,.4), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb6), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME6$estimate[1], shape2=bt.MME6$estimate[2]), xlim = c(0,.4), 
-                color = "purple", alpha = 1, linewidth=2)+ 
+                color = "#0072b2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb6), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME6$estimate[1], sdlog=ln.MME6$estimate[2]), xlim = c(0,.4), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#d55e00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Dogtongue buckwheat") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
 ## Survey 7: need to filter to just one survey - ln best ####
 sevensurv <- plant_data_all %>% filter(survey == "Survey 7")
@@ -651,15 +695,22 @@ histo7 <- ggplot(sevensurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb7), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME7$estimate[1], sd=nm.MME7$estimate[2]), xlim = c(-.01,.8), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb7), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME7$estimate[1], shape2=bt.MME7$estimate[2]), xlim = c(0,.8), 
-                color = "purple", alpha = 1, linewidth=2)+ 
+                color = "#0072b2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb7), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME7$estimate[1], sdlog=ln.MME7$estimate[2]), xlim = c(0,.8), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#d55e00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Florida prickly pear") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
 ## Survey 8: need to filter to just one survey - ln best ####
 eightsurv <- plant_data_all %>% filter(survey == "Survey 8")
@@ -703,29 +754,26 @@ histo8 <- ggplot(eightsurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb8), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME8$estimate[1], sd=nm.MME8$estimate[2]), xlim = c(-.01,.2), 
-                color = "pink", alpha = 0.5, linewidth=2)+ 
+                color = "#606c38", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb8), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME8$estimate[1], shape2=bt.MME8$estimate[2]), xlim = c(0,.2), 
-                color = "yellow", alpha = 0.5, linewidth=2)+ 
+                color = "#0072B2", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb8), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME8$estimate[1], sdlog=ln.MME8$estimate[2]), xlim = c(0,.2), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#D55E00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
   labs(x='proportion herbivory', y='density')+
-  ggtitle("Goldenrod") +
-  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "red", linewidth = 1.2) +
-  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "blue", linewidth = 1.2) +
-  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "green", linewidth = 1.2) +
-  annotate("text", x = 0.13, y = 30, label = "Line 1", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Line 2", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Line 3", hjust = 0, size = 6)
+  ggtitle("Paleleaf woodland sunflower") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
 
-
-# add titles of the plant species, add colors, change line width 
 
 # histogram #####
-histoall <- histo1 + histo2 + histo3 + histo4 + histo5 + histo6 + histo7 + histo8 + plot_layout(ncol= 4)
+histoall <- histo1 + histo2 + histo3 + histo4 + histo5 + histo6 + histo7 + histo8+ plot_layout(ncol= 4)
 
-# legend #####
 
 

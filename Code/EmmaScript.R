@@ -7,6 +7,9 @@ library(tidyverse)
 library(readxl)
 library(moments)
 library(fitdistrplus)
+install.packages("viridis")
+library(patchwork)
+library(viridis)
 
 # Load site data ####
 siteData1 <- read_xlsx("RawDataandProcessing/Hair1_HerbVar_Datasheet_2024.xlsx", 
@@ -269,7 +272,21 @@ survey_density <- combined_plant_and_site_data %>%
     meanFrequency = mean(plantfrequency, na.rm = TRUE)
   )
 
-all_stats <- full_join(survey_density, leaf_herb_stats)
+all_stats <- full_join(survey_density, leaf_herb_stats)%>% 
+  mutate(stddev = sqrt(variance), abundance = ifelse(meanDensity > 10, "common", "rare"))
+
+all_stats[8,8]<- "rare"
+
+# correlation plots #####
+ggplot(all_stats%>%drop_na(meanDensity), aes(x = log(meanDensity), y = mean)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+# add sd and skew
+
+# box plot showing low vs high densty
+ggplot(all_stats, aes(x = abundance, y = mean)) + 
+  geom_boxplot() +
+  geom_jitter(height = 0)
 
 # Using the ‘fitdistrplus’ package (one survey at a time) ####
 ## Survey 1 -need to filter to just one survey - ln best ####
@@ -426,13 +443,13 @@ histo3 <- ggplot(threesurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb3), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME3$estimate[1], sd=nm.MME3$estimate[2]), xlim = c(-.01,.4), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "#FDE725FF", alpha = 1, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb3), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME3$estimate[1], shape2=bt.MME3$estimate[2]), xlim = c(0,.4), 
-                color = "purple", alpha = 1, linewidth=2)+ 
+                color = "#404788FF", alpha = 1, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb3), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME3$estimate[1], sdlog=ln.MME3$estimate[2]), xlim = c(0,.4), 
-                color = "green", alpha = 1, linewidth=2)+
+                color = "#55C667FF", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
   labs(x='proportion herbivory', y='density')
 
@@ -686,12 +703,29 @@ histo8 <- ggplot(eightsurv, aes(percHerbPlant/100)) +
   #stat_function(geom = "point", color="purple", n = 5, fun = dpois, args = list(lambda = 0.6923077)) +
   stat_function(geom = "line", aes(propHerb8), n = 100, fun = dnorm, 
                 args = list(mean=nm.MME8$estimate[1], sd=nm.MME8$estimate[2]), xlim = c(-.01,.2), 
-                color = "red", alpha = 1, linewidth=2)+ 
+                color = "pink", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb8), n = 100, fun = dbeta, 
                 args = list(shape1=bt.MME8$estimate[1], shape2=bt.MME8$estimate[2]), xlim = c(0,.2), 
-                color = "purple", alpha = 1, linewidth=2)+ 
+                color = "yellow", alpha = 0.5, linewidth=2)+ 
   stat_function(geom = "line", aes(propHerb8), n = 100, fun = dlnorm, 
                 args = list(meanlog=ln.MME8$estimate[1], sdlog=ln.MME8$estimate[2]), xlim = c(0,.2), 
                 color = "green", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
-  labs(x='proportion herbivory', y='density')
+  labs(x='proportion herbivory', y='density')+
+  ggtitle("Goldenrod") +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "red", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "blue", linewidth = 1.2) +
+  geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "green", linewidth = 1.2) +
+  annotate("text", x = 0.13, y = 30, label = "Line 1", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 26, label = "Line 2", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Line 3", hjust = 0, size = 6)
+
+
+# add titles of the plant species, add colors, change line width 
+
+# histogram #####
+histoall <- histo1 + histo2 + histo3 + histo4 + histo5 + histo6 + histo7 + histo8 + plot_layout(ncol= 4)
+
+# legend #####
+
+

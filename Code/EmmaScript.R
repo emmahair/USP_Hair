@@ -280,10 +280,20 @@ all_stats[8,8]<- "rare"
 # correlation plots #####
 ggplot(all_stats%>%drop_na(meanDensity), aes(x = log(meanDensity), y = mean)) + 
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  labs(x = "Density of Mean", y = "Mean")
+
 ggplot(all_stats%>%drop_na(meanFrequency), aes(x = log(meanFrequency), y = mean)) + 
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  labs(x = "Frequency of Mean", y = "Mean")
+
+ggplot(all_stats%>%drop_na(stddev), aes(x = log(stddev), y = mean)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Standard Deviation", y = "Mean")
+
+# can't get skewness, varience, or mean to work without a warning
 
 # box plot showing low vs high densty
 ggplot(all_stats, aes(x = abundance, y = mean)) + 
@@ -775,6 +785,5 @@ histo8 <- ggplot(eightsurv, aes(percHerbPlant/100)) +
 # histogram #####
 histoall <- (histo1 + histo2) / (histo3 + histo4) + (histo5 + histo6) / (histo7 + histo8)
 histoall <- (histo1 + histo2 + histo3 + histo4 + histo5 + histo6 + histo7 + histo8) + plot_layout(ncol = 4, nrow = 2)
-
 
 

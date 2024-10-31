@@ -773,7 +773,8 @@ histo8 <- ggplot(eightsurv, aes(percHerbPlant/100)) +
 
 
 # histogram #####
-histoall <- histo1 + histo2 + histo3 + histo4 + histo5 + histo6 + histo7 + histo8+ plot_layout(ncol= 4)
+histoall <- (histo1 + histo2) / (histo3 + histo4) + (histo5 + histo6) / (histo7 + histo8)
+histoall <- (histo1 + histo2 + histo3 + histo4 + histo5 + histo6 + histo7 + histo8) + plot_layout(ncol = 4, nrow = 2)
 
 
 

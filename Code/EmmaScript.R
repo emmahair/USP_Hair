@@ -301,12 +301,12 @@ ggplot(all_stats%>%drop_na(mean), aes(x = log(mean), y = mean)) +
 ggplot(all_stats%>%drop_na(variance), aes(x = log(variance), y = mean)) + 
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Density", y = "Variance")
+  labs(x = "Variance", y = "Mean")
 
 ggplot(all_stats%>%drop_na(mean), aes(x = log(skewness), y = mean)) + 
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Density", y = "Variance")
+  labs(x = "Skewness", y = "Mean")
 
 ggplot(all_stats%>%drop_na(meanDensity), aes(x = log(meanDensity), y = variance)) + 
   geom_point() +
@@ -321,19 +321,29 @@ ggplot(all_stats%>%drop_na(meanFrequency), aes(x = log(meanFrequency), y = skewn
 ggplot(all_stats%>%drop_na(meanDensity), aes(x = log(meanDensity), y = skewness)) + 
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Mean of Density", y = "Variance")
+  labs(x = "Mean of Density", y = "Skewness")
 
-ggplot(all_stats%>%drop_na(meanFrequency), aes(x = log(meanFrequency), y = variance) + 
+ggplot(all_stats%>%drop_na(meanFrequency), aes(x = log(meanFrequency), y = variance)) + 
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Frequency of Mean", y = "Skewness")
+  labs(x = "Frequency of Mean", y = "Variance")
 
-# box plot showing low vs high densty
+# box plot showing low vs high density
 ggplot(all_stats, aes(x = abundance, y = mean)) + 
   geom_boxplot() +
   geom_jitter(height = 0)
 
-# mean abundace skewness
+ggplot(all_stats, aes(x = mean, y = abundance)) + 
+  geom_boxplot() +
+  geom_jitter(height = 0)
+
+ggplot(all_stats, aes(x = abundance, y = skewness)) + 
+  geom_boxplot() +
+  geom_jitter(height = 0)
+
+ggplot(all_stats, aes(x = skewness, y = abundance)) + 
+  geom_boxplot() +
+  geom_jitter(height = 0)
 
 # Using the ‘fitdistrplus’ package (one survey at a time) ####
 ## Survey 1 -need to filter to just one survey - ln best ####

@@ -293,12 +293,47 @@ ggplot(all_stats%>%drop_na(stddev), aes(x = log(stddev), y = mean)) +
   geom_smooth(method = "lm") +
   labs(x = "Standard Deviation", y = "Mean")
 
-# can't get skewness, varience, or mean to work without a warning
+ggplot(all_stats%>%drop_na(mean), aes(x = log(mean), y = mean)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Mean", y = "Mean")
+
+ggplot(all_stats%>%drop_na(variance), aes(x = log(variance), y = mean)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Density", y = "Variance")
+
+ggplot(all_stats%>%drop_na(mean), aes(x = log(skewness), y = mean)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Density", y = "Variance")
+
+ggplot(all_stats%>%drop_na(meanDensity), aes(x = log(meanDensity), y = variance)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Mean of Density", y = "Variance")
+
+ggplot(all_stats%>%drop_na(meanFrequency), aes(x = log(meanFrequency), y = skewness)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Frequency of Mean", y = "Skewness")
+
+ggplot(all_stats%>%drop_na(meanDensity), aes(x = log(meanDensity), y = skewness)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Mean of Density", y = "Variance")
+
+ggplot(all_stats%>%drop_na(meanFrequency), aes(x = log(meanFrequency), y = variance) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Frequency of Mean", y = "Skewness")
 
 # box plot showing low vs high densty
 ggplot(all_stats, aes(x = abundance, y = mean)) + 
   geom_boxplot() +
   geom_jitter(height = 0)
+
+# mean abundace skewness
 
 # Using the ‘fitdistrplus’ package (one survey at a time) ####
 ## Survey 1 -need to filter to just one survey - ln best ####
@@ -772,14 +807,16 @@ histo8 <- ggplot(eightsurv, aes(percHerbPlant/100)) +
                 args = list(meanlog=ln.MME8$estimate[1], sdlog=ln.MME8$estimate[2]), xlim = c(0,.2), 
                 color = "#D55E00", alpha = 1, linewidth=2)+
   theme_bw(base_size = 24)+
+  theme()+
   labs(x='proportion herbivory', y='density')+
+  xlim(c(0,0.4))+ 
   ggtitle("Paleleaf woodland sunflower") +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 30, yend = 30), color = "#606c38", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 
 # histogram #####

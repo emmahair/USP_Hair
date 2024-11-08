@@ -405,8 +405,8 @@ histo1 <- ggplot(onesurv, aes(percHerbPlant/100)) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 
 ## Survey 2: need to filter to just one survey - ln best ####
@@ -467,8 +467,8 @@ histo2 <- ggplot(twosurv, aes(percHerbPlant/100)) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 ## Survey 3: need to filter to just one survey - ln best ####
 threesurv <- plant_data_all %>% filter(survey == "Survey 3")
@@ -528,8 +528,8 @@ histo3 <- ggplot(threesurv, aes(percHerbPlant/100)) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 ## Survey 4: need to filter to just one survey - ln best ####
 foursurv <- plant_data_all %>% filter(survey == "Survey 4")
@@ -587,8 +587,8 @@ histo4 <- ggplot(foursurv, aes(percHerbPlant/100)) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 ## Survey 5: need to filter to just one survey - ln best ####
 fivesurv <- plant_data_all %>% filter(survey == "Survey 5")
@@ -646,8 +646,8 @@ histo5 <- ggplot(fivesurv, aes(percHerbPlant/100)) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 ## Survey 6: need to filter to just one survey - ln best ####
 sixsurv <- plant_data_all %>% filter(survey == "Survey 6")
@@ -705,8 +705,8 @@ histo6 <- ggplot(sixsurv, aes(percHerbPlant/100)) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 ## Survey 7: need to filter to just one survey - ln best ####
 sevensurv <- plant_data_all %>% filter(survey == "Survey 7")
@@ -764,8 +764,8 @@ histo7 <- ggplot(sevensurv, aes(percHerbPlant/100)) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 26, yend = 26), color = "#0072b2", linewidth = 1.2) +
   geom_segment(aes(x = 0.1, xend = 0.12, y = 22, yend = 22), color = "#d55e00", linewidth = 1.2) +
   annotate("text", x = 0.13, y = 30, label = "Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 26, label = "Log Normal", hjust = 0, size = 6) +
-  annotate("text", x = 0.13, y = 22, label = "Beta", hjust = 0, size = 6)
+  annotate("text", x = 0.13, y = 26, label = "Beta", hjust = 0, size = 6) +
+  annotate("text", x = 0.13, y = 22, label = "Log Normal", hjust = 0, size = 6)
 
 ## Survey 8: need to filter to just one survey - ln best ####
 eightsurv <- plant_data_all %>% filter(survey == "Survey 8")
